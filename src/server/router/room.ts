@@ -6,14 +6,14 @@ import {
 import { createRouter } from "./context";
 import { Events } from "../../constants/events";
 import * as trpc from "@trpc/server";
-import { nanoid } from "nanoid";
+import { randomUUID } from "crypto";
 
 export const roomRouter = createRouter()
   .mutation("send-message", {
     input: sendMessageSchema,
     resolve({ ctx, input }) {
       const message: Message = {
-        id: nanoid(),
+        id: randomUUID(),
         ...input,
         sentAt: new Date(),
         sender: {
